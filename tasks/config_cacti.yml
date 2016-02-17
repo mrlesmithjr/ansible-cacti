@@ -1,0 +1,76 @@
+---
+- name: config_cacti | downloading cacti
+  get_url:
+    url: "{{ cacti_dl_url }}/{{ cacti_dl_file }}"
+    dest: "{{ apache2_root_dir }}/{{ cacti_dl_file }}"
+
+- name: config_cacti | extracting cacti
+  unarchive:
+    src: "{{ apache2_root_dir }}/{{ cacti_dl_file }}"
+    dest: "{{ apache2_root_dir }}"
+    copy: no
+    creates: "{{ apache2_root_dir }}/cacti-{{ cacti_version }}/index.php"
+
+- name: config_cacti | creating cacti symlink
+  file:
+    src: "{{ apache2_root_dir }}/cacti-{{ cacti_version }}"
+    dest: "{{ cacti_site_dir }}"
+    state: link
+
+- name: config_cacti | checking if cacti DB already populated
+  stat:
+    path: "/var/log/.cacti_db_populated"
+  register: cacti_db_already_populated
+
+- name: config_cacti | populating cacti DB
+  mysql_db:
+    name: "{{ cacti_db_info.db_name }}"
+    target: "{{ cacti_site_dir }}/cacti.sql"
+    state: import
+  register: cacti_db_populated
+  when: not cacti_db_already_populated.stat.exists
+
+- name: config_cacti | marking cacti DB as populated
+  file:
+    dest: "/var/log/.cacti_db_populated"
+    state: touch
+  when: cacti_db_populated.changed
+
+- name: config_cacti | setting site permissions
+  file:
+    path: "{{ apache2_root_dir }}/cacti-{{ cacti_version }}"
+    state: directory
+    recurse: yes
+    owner: www-data
+    group: www-data
+    
+- name: config_cacti | configuring cacti settings
+  template:
+    src: "config.php.j2"
+    dest: "{{ cacti_site_dir }}/include/config.php"
+    owner: www-data
+    group: www-data
+    mode: 0644
+
+- name: config_cacti | configuring rra directory permissions
+  file:
+    path: "{{ cacti_site_dir }}/{{ item }}"
+    state: directory
+    recurse: yes
+    owner: "{{ cacti_user_info.name }}"
+    group: www-data
+    mode: 0775
+  with_items:
+    - log
+    - rra
+
+- name: config_cacti | creating cacti poller cron
+  cron:
+    name: "Cacti poller cron"
+    user: "{{ cacti_user_info.name }}"
+    minute: "{{ cacti_cron_schedule.minute }}"
+    hour: "{{ cacti_cron_schedule.hour }}"
+    day: "{{ cacti_cron_schedule.day }}"
+    month: "{{ cacti_cron_schedule.month }}"
+    job: "php {{ cacti_site_dir }}/poller.php /dev/null 2>&1"
+    cron_file: "cacti_poller"

@@ -1,0 +1,12 @@
+---
+- name: database | creating cacti DB
+  mysql_db:
+    name: "{{ cacti_db_info.db_name }}"
+    state: present
+
+- name: database | assigning cacti DB permissions
+  mysql_user:
+    name: "{{ cacti_db_info.user }}"
+    password: "{{ cacti_db_info.password }}"
+    priv: "{{ cacti_db_info.db_name }}.*:ALL"
+    state: present

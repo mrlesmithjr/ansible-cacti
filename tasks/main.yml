@@ -1,0 +1,10 @@
+---
+# tasks file for ansible-cacti
+- include: debian.yml
+  when: ansible_os_family == "Debian"
+
+- include: users.yml
+
+- include: database.yml
+
+- include: config_cacti.yml

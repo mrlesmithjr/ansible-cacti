@@ -1,0 +1,36 @@
+---
+# defaults file for ansible-cacti
+apache2_root_dir: '/var/www/html'
+cacti_config_file: '{{ cacti_site_dir }}/include/config.php'
+cacti_cron_schedule:
+  minute: '*/5'
+  hour: '*'
+  day: '*'
+  month: '*'
+cacti_db_info:
+  host: '127.0.0.1'
+  port: '3306'
+  db_name: 'cactidb'
+  user: 'cactiuser'
+  password: 'cacti'
+cacti_debian_packages:
+  - php5
+  - php5-cli
+  - php5-gd
+  - php5-mysql
+  - php5-snmp
+  - python-mysqldb
+  - python-passlib
+  - rrdtool
+  - snmp
+  - zlib1g
+  - zlib1g-dev
+cacti_dl_file: 'cacti-{{ cacti_version }}.tar.gz'
+cacti_dl_url: 'http://www.cacti.net/downloads/'
+cacti_site_dir: '{{ apache2_root_dir }}/cacti'
+cacti_url_path: '/cacti/'
+cacti_user_info:
+  name: 'cactiuser'
+  password: 'cacti'
+  comment: 'Cacti User Account'
+cacti_version: '0.8.8f'
