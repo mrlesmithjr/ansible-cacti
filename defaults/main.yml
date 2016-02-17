@@ -14,7 +14,6 @@ cacti_db_info:
   user: 'cactiuser'
   password: 'cacti'
 cacti_debian_packages:
-  - php5
   - php5-cli
   - php5-gd
   - php5-mysql
