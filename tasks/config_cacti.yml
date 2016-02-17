@@ -43,7 +43,7 @@
     recurse: yes
     owner: www-data
     group: www-data
-    
+
 - name: config_cacti | configuring cacti settings
   template:
     src: "config.php.j2"
@@ -72,5 +72,5 @@
     hour: "{{ cacti_cron_schedule.hour }}"
     day: "{{ cacti_cron_schedule.day }}"
     month: "{{ cacti_cron_schedule.month }}"
-    job: "php {{ cacti_site_dir }}/poller.php /dev/null 2>&1"
+    job: "php {{ cacti_site_dir }}/poller.php 2>&1 >/dev/null"
     cron_file: "cacti_poller"

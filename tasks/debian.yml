@@ -1,4 +1,10 @@
 ---
+- name: debian | installing php5
+  apt:
+    name: "php5"
+    state: present
+  notify: restart apache2
+  
 - name: debian | installing dependencies
   apt:
     name: "{{ item }}"
