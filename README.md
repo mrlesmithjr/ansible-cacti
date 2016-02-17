@@ -72,12 +72,12 @@ cacti_version: '0.8.8f'
 Dependencies
 ------------
 
-https://github.com/mrlesmithjr/ansible-apache2.git
-https://github.com/mrlesmithjr/ansible-cacti.git
-https://github.com/mrlesmithjr/ansible-mariadb-mysql.git
-https://github.com/mrlesmithjr/ansible-ntp.git
-https://github.com/mrlesmithjr/ansible-snmpd.git
-https://github.com/mrlesmithjr/ansible-timezone.git
+https://github.com/mrlesmithjr/ansible-apache2.git  
+https://github.com/mrlesmithjr/ansible-cacti.git  
+https://github.com/mrlesmithjr/ansible-mariadb-mysql.git  
+https://github.com/mrlesmithjr/ansible-ntp.git  
+https://github.com/mrlesmithjr/ansible-snmpd.git  
+https://github.com/mrlesmithjr/ansible-timezone.git  
 
 Install all dependencies following requirements section.
 
