@@ -7,7 +7,7 @@
 # you're doing.
 Vagrant.configure(2) do |config|
   config.vm.define "cacti" do |cacti|
-    cacti.vm.box = "ubuntu/trusty64"
+    cacti.vm.box = "mrlesmithjr/trusty64"
     cacti.vm.hostname = "cacti"
 
 #    cacti.vm.network :private_network, ip: "192.168.202.201"
