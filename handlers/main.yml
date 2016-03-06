@@ -4,3 +4,8 @@
   service:
     name: "apache2"
     state: restarted
+
+- name: restart httpd
+  service:
+    name: "httpd"
+    state: restarted

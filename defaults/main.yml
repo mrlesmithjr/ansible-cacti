@@ -26,6 +26,20 @@ cacti_debian_packages:
   - zlib1g-dev
 cacti_dl_file: 'cacti-{{ cacti_version }}.tar.gz'
 cacti_dl_url: 'http://www.cacti.net/downloads/'
+cacti_redhat_packages:
+  - MySQL-python
+  - net-snmp-libs
+  - net-snmp-utils
+  - php
+  - php-cli
+  - php-common
+  - php-devel
+  - php-gd
+  - php-mbstring
+  - php-mysql
+  - php-pear
+  - php-snmp
+  - rrdtool
 cacti_site_dir: '{{ apache2_root_dir }}/cacti'
 cacti_url_path: '/cacti/'
 cacti_user_info:

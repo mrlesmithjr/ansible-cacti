@@ -43,6 +43,18 @@
     recurse: yes
     owner: www-data
     group: www-data
+  when: >
+        ansible_os_family == "Debian"
+
+- name: config_cacti | setting site permissions
+  file:
+    path: "{{ apache2_root_dir }}/cacti-{{ cacti_version }}"
+    state: directory
+    recurse: yes
+    owner: apache
+    group: apache
+  when: >
+        ansible_os_family == "RedHat"
 
 - name: config_cacti | configuring cacti settings
   template:
@@ -51,6 +63,18 @@
     owner: www-data
     group: www-data
     mode: 0644
+  when: >
+        ansible_os_family == "Debian"
+
+- name: config_cacti | configuring cacti settings
+  template:
+    src: "config.php.j2"
+    dest: "{{ cacti_site_dir }}/include/config.php"
+    owner: apache
+    group: apache
+    mode: 0644
+  when: >
+        ansible_os_family == "RedHat"
 
 - name: config_cacti | configuring rra directory permissions
   file:
@@ -63,6 +87,22 @@
   with_items:
     - log
     - rra
+  when: >
+        ansible_os_family == "Debian"
+
+- name: config_cacti | configuring rra directory permissions
+  file:
+    path: "{{ cacti_site_dir }}/{{ item }}"
+    state: directory
+    recurse: yes
+    owner: "{{ cacti_user_info.name }}"
+    group: apache
+    mode: 0775
+  with_items:
+    - log
+    - rra
+  when: >
+        ansible_os_family == "RedHat"
 
 - name: config_cacti | creating cacti poller cron
   cron:
