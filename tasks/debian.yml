@@ -4,9 +4,9 @@
     name: "php5"
     state: present
   notify: restart apache2
-  
+
 - name: debian | installing dependencies
   apt:
     name: "{{ item }}"
     state: present
-  with_items: cacti_debian_packages
+  with_items: '{{ cacti_debian_packages }}'

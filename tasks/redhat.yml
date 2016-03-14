@@ -5,7 +5,7 @@
     state: present
   notify:
     - restart httpd
-  with_items: cacti_redhat_packages
+  with_items: '{{ cacti_redhat_packages }}'
   when: >
         ansible_distribution != "Fedora"
 
@@ -15,6 +15,6 @@
     state: present
   notify:
     - restart httpd
-  with_items: cacti_redhat_packages
+  with_items: '{{ cacti_redhat_packages }}'
   when: >
         ansible_distribution == "Fedora"

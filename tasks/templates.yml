@@ -3,19 +3,9 @@
   file:
     path: "{{ cacti_site_dir }}/templates"
     state: directory
-    owner: www-data
-    group: www-data
+    owner: "{{ cacti_web_owner }}"
+    group: "{{ cacti_web_group }}"
     mode: 0755
-  when: ansible_os_family == "Debian"
-
-- name: templates | ensuring templates directory exists
-  file:
-    path: "{{ cacti_site_dir }}/templates"
-    state: directory
-    owner: apache
-    group: apache
-    mode: 0644
-  when: ansible_os_family == "RedHat"
 
 - name: templates | copying additional cacti snmp queries
   template:
@@ -24,7 +14,7 @@
     owner: root
     group: root
     mode: 0644
-  with_items: cacti_snmp_queries
+  with_items: '{{ cacti_snmp_queries }}'
 
 - name: templates | copying snmp informant templates
   template:
@@ -33,7 +23,7 @@
     owner: root
     group: root
     mode: 0644
-  with_items: cacti_snmp_templates
+  with_items: '{{ cacti_snmp_templates }}'
 
 - name: templates | importing snmp informant templates
   command: php {{ cacti_cli }}/import_template.php --filename={{ cacti_site_dir }}/templates/{{ item }} --with-template-rras
