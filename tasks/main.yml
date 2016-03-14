@@ -1,5 +1,41 @@
 ---
 # tasks file for ansible-cacti
+- name: setting fact Debian apache2
+  set_fact:
+    cacti_web_group: "www-data"
+    cacti_web_owner: "www-data"
+    cacti_web_root: "/var/www/html"
+  when: >
+        ansible_os_family == "Debian" and
+        cacti_webserver_type == "apache2"
+
+- name: setting fact Debian lighttpd
+  set_fact:
+    cacti_web_group: "www-data"
+    cacti_web_owner: "www-data"
+    cacti_web_root: "/var/www"
+  when: >
+        ansible_os_family == "Debian" and
+        cacti_webserver_type == "lighttpd"
+
+- name: setting fact RedHat apache2
+  set_fact:
+    cacti_web_group: "apache"
+    cacti_web_owner: "apache"
+    cacti_web_root: "/var/www/html"
+  when: >
+        ansible_os_family == "RedHat" and
+        cacti_webserver_type == "apache2"
+
+- name: setting fact RedHat lighttpd
+  set_fact:
+    cacti_web_group: "lighttpd"
+    cacti_web_owner: "lighttpd"
+    cacti_web_root: "/srv/www"
+  when: >
+        ansible_os_family == "RedHat" and
+        cacti_webserver_type == "lighttpd"
+
 - include: debian.yml
   when: ansible_os_family == "Debian"
 
