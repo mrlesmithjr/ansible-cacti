@@ -1,6 +1,5 @@
 ---
 # defaults file for ansible-cacti
-apache2_root_dir: '/var/www/html'
 cacti_cli: '{{ cacti_site_dir }}/cli'
 cacti_config_file: '{{ cacti_site_dir }}/include/config.php'
 cacti_cron_schedule:
@@ -42,7 +41,7 @@ cacti_redhat_packages:
   - php-pear
   - php-snmp
   - rrdtool
-cacti_site_dir: '{{ apache2_root_dir }}/cacti'
+cacti_site_dir: "{{ cacti_web_root }}/cacti"
 cacti_snmp_queries:
   - f5_bigip_ifStat.xml
   - f5_bigip_pm.xml
@@ -69,3 +68,4 @@ cacti_user_info:
   password: 'cacti'
   comment: 'Cacti User Account'
 cacti_version: '0.8.8f'
+cacti_webserver_type: 'apache2'  #defines web server type (apache2|lighttpd)
