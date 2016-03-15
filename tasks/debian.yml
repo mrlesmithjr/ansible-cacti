@@ -3,7 +3,8 @@
   apt:
     name: "php5"
     state: present
-  notify: restart apache2
+  notify:
+    - 'restart {{ cacti_webserver_handler }}'
 
 - name: debian | installing dependencies
   apt:
