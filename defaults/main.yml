@@ -68,4 +68,4 @@ cacti_user_info:
   password: 'cacti'
   comment: 'Cacti User Account'
 cacti_version: '0.8.8f'
-cacti_webserver_type: 'apache2'  #defines web server type (apache2|lighttpd)
+cacti_webserver_type: 'apache2'  #defines web server type (apache2|lighttpd|nginx)
