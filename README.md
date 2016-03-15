@@ -126,12 +126,15 @@ Example Playbook
 - hosts: all
   become: true
   vars:
+    - cacti_webserver_type: 'apache2'
     - pri_domain_name: 'vagrant.local'
   roles:
     - role: ansible-apache2
       when: cacti_webserver_type == "apache2"
     - role: ansible-lighttpd
       when: cacti_webserver_type == "lighttpd"
+    - role: ansible-nginx
+      when: cacti_webserver_type == "nginx"
     - role: ansible-mariadb-mysql
     - role: ansible-ntp
     - role: ansible-snmpd
