@@ -9,3 +9,13 @@
   service:
     name: "httpd"
     state: restarted
+
+- name: restart lighttpd
+  service:
+    name: "lighttpd"
+    state: restarted
+
+- name: restart nginx
+  service:
+    name: "nginx"
+    state: restarted
