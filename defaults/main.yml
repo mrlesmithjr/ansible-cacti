@@ -7,6 +7,7 @@ cacti_cron_schedule:
   hour: '*'
   day: '*'
   month: '*'
+cacti_db_allow_all_hosts: false  #Defines if the cacti user account should be able to login from anywhere vs. localhost
 cacti_db_info:
   host: '127.0.0.1'
   port: '3306'
@@ -14,6 +15,7 @@ cacti_db_info:
   user: 'cactiuser'
   password: 'cacti'
 cacti_debian_packages:
+  - mysql-client
   - php5-cli
   - php5-gd
   - php5-mysql
@@ -41,6 +43,7 @@ cacti_redhat_packages:
   - php-pear
   - php-snmp
   - rrdtool
+cacti_remote_db: false
 cacti_site_dir: "{{ cacti_web_root }}/cacti"
 cacti_snmp_queries:
   - f5_bigip_ifStat.xml
@@ -62,10 +65,19 @@ cacti_snmp_templates:
   - cacti_data_query_snmp_informant_standard_-_network_statistics.xml
   - cacti_data_query_snmp_informant_standard_-_objects_statistics.xml
   - cacti_host_template_snmp_informant_windows.xml
+cacti_trees:
+  - name: Infrastructure
+    sub_trees:
+      - Network
+      - Servers
+      - UCS
+  - Linux
+  - Windows
 cacti_url_path: '/cacti/'
 cacti_user_info:
   name: 'cactiuser'
   password: 'cacti'
   comment: 'Cacti User Account'
-cacti_version: '0.8.8f'
+cacti_version: '0.8.8g'
 cacti_webserver_type: 'apache2'  #defines web server type (apache2|lighttpd|nginx)
+mysql_root_password: root

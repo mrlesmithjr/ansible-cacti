@@ -19,7 +19,7 @@
 
 - name: config_cacti | checking if cacti DB already populated
   stat:
-    path: "/var/log/.cacti_db_populated"
+    path: "{{ cacti_web_root }}/.cacti_db_populated"
   register: cacti_db_already_populated
 
 - name: config_cacti | populating cacti DB
@@ -28,11 +28,28 @@
     target: "{{ cacti_site_dir }}/cacti.sql"
     state: import
   register: cacti_db_populated
-  when: not cacti_db_already_populated.stat.exists
+  ignore_errors: true  #defined to get around clustered setup...may remove at a later time
+  when: >
+        not cacti_db_already_populated.stat.exists and
+        not cacti_remote_db
+
+- name: config_cacti | populating cacti DB
+  mysql_db:
+    name: "{{ cacti_db_info.db_name }}"
+    target: "{{ cacti_site_dir }}/cacti.sql"
+    state: import
+    login_host: "{{ cacti_db_info.host }}"
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+  register: cacti_db_populated
+  ignore_errors: true  #defined to get around clustered setup...may remove at a later time
+  when: >
+        not cacti_db_already_populated.stat.exists and
+        cacti_remote_db
 
 - name: config_cacti | marking cacti DB as populated
   file:
-    dest: "/var/log/.cacti_db_populated"
+    dest: "{{ cacti_web_root }}/.cacti_db_populated"
     state: touch
   when: cacti_db_populated.changed
 
