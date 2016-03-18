@@ -16,6 +16,13 @@
     src: "{{ cacti_web_root }}/cacti-{{ cacti_version }}"
     dest: "{{ cacti_site_dir }}"
     state: link
+- name: config_cacti | copying new cacti.sql
+  template:
+    src: "cacti.sql.j2"
+    dest: "{{ cacti_site_dir }}/cacti.sql"
+    owner: "{{ cacti_web_owner }}"
+    group: "{{ cacti_web_group }}"
+  when: cacti_replace_cacti_db_schema
 
 - name: config_cacti | checking if cacti DB already populated
   stat:

@@ -44,6 +44,7 @@ cacti_redhat_packages:
   - php-snmp
   - rrdtool
 cacti_remote_db: false
+cacti_replace_cacti_db_schema: false
 cacti_site_dir: "{{ cacti_web_root }}/cacti"
 cacti_snmp_queries:
   - f5_bigip_ifStat.xml
