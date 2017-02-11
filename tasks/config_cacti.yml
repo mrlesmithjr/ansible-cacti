@@ -16,6 +16,7 @@
     src: "{{ cacti_web_root }}/cacti-{{ cacti_version }}"
     dest: "{{ cacti_site_dir }}"
     state: link
+
 - name: config_cacti | copying new cacti.sql
   template:
     src: "cacti.sql.j2"
