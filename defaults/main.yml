@@ -7,7 +7,10 @@ cacti_cron_schedule:
   hour: '*'
   day: '*'
   month: '*'
-cacti_db_allow_all_hosts: false  #Defines if the cacti user account should be able to login from anywhere vs. localhost
+
+# Defines if the cacti user account should be able to login from anywhere vs. localhost
+cacti_db_allow_all_hosts: false
+
 cacti_db_info:
   host: '127.0.0.1'
   port: '3306'
@@ -33,7 +36,9 @@ cacti_debian_packages:
   - 'zlib1g-dev'
 cacti_dl_file: 'cacti-{{ cacti_version }}.tar.gz'
 cacti_dl_url: 'http://www.cacti.net/downloads/'
-cacti_import_templates: true  #defines if Cacti templates included should be added and imported
+
+# Defines if Cacti templates included should be added and imported
+cacti_import_templates: true
 cacti_redhat_packages:
   - MySQL-python
   - net-snmp-libs
@@ -84,6 +89,6 @@ cacti_user_info:
   name: 'cactiuser'
   password: 'cacti'
   comment: 'Cacti User Account'
-cacti_version: '1.0.1'
+cacti_version: '1.0.3'
 cacti_webserver_type: 'apache2'  #defines web server type (apache2|lighttpd|nginx)
 mysql_root_password: root
