@@ -24,6 +24,8 @@ cacti_debian_packages:
   - 'php{{ cacti_php_version }}-fpm'
   - 'php{{ cacti_php_version }}-gd'
   - 'php{{ cacti_php_version }}-json'
+  - 'php-ldap'
+  - 'php-mbstring'
   - 'php{{ cacti_php_version }}-mysql'
   - 'php{{ cacti_php_version }}-snmp'
   - 'php{{ cacti_php_version }}-xml'

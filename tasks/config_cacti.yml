@@ -113,10 +113,15 @@
     - "restart {{ cacti_webserver_handler }}"
   when: cacti_webserver_type|lower == "apache2"
 
+- name: config_cacti | Populating MySQL TimeZone Info
+  shell: "mysql_tzinfo_to_sql  /usr/share/zoneinfo | mysql mysql"
+  when: >
+        not cacti_db_already_populated.stat.exists
+
 - name: config_cacti | assigning cacti permissions to mysql.time_zone_name
   mysql_user:
     name: "{{ cacti_db_info.user }}"
     password: "{{ cacti_db_info.password }}"
-    priv: "mysql.time_zone_name.*:SELECT"
+    priv: "mysql.time_zone_name:SELECT"
     append_privs: yes
     state: present
